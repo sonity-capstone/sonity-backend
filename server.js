@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require('dotenv')
 const app = express();
 
+dotenv.config()
 
 const db = require("./app/models");
 const Role = db.role;
@@ -47,8 +48,13 @@ app.get("/", (req, res) => {
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 
+const leadsRouter = require('./app/routes/leads.routes')
+
+app.use('/leads', leadsRouter);
+
 // set port, listen for requests
-const PORT = dotenv.PORT;
-app.listen(3050, () => {
+const PORT = process.env.PORT;
+
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
