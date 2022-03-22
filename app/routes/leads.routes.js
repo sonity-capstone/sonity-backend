@@ -29,6 +29,28 @@ router.get("/", (req, res) => {
     })
 });
 
+router.get("/count", (req, res) => {
+    
+    location_country_id = req.query.c_id ? req.query.c_id : 235
+    location_region_id  = req.query.r_id ? req.query.r_id : 34
+    location_metro_id   = req.query.m_id ? req.query.m_id : 285
+    industry_id         = req.query.i_id ? req.query.i_id : 20
+    leadsDB.query(`
+        SELECT COUNT(*) FROM li_data.get_profiles_list(
+            ${location_country_id},
+            ${location_region_id},
+            ${location_metro_id},
+            ${industry_id}
+        )
+    `, (err, leads) => {
+        if (err) {
+            res.send({error: err.toString()})
+        } else {
+            res.send(leads.rows[0])
+        }
+    })
+});
+
 router.get("/countries", (req, res) => {
     leadsDB.query(`
         SELECT * FROM reference.countries
