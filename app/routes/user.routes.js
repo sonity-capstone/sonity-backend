@@ -25,4 +25,12 @@ module.exports = function(app) {
     [authJWT.verifyToken, authJWT.isAdmin],
     controller.adminBoard
   );
+  
+  //app.get("/user/viewList", controller.viewInterestList)
+  //app.post("/user/add", controller.addToList)
+  //app.delete("/user/remove", controller.removeFromList)
+  app.post("/user/cancel", controller.cancel);
+  app.post("/user/editEmail",  controller.editEmail);
+  app.post("/user/editPassword",  controller.editPassword);
+  
 };

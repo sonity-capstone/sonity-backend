@@ -12,7 +12,7 @@ exports.signup = (req, res) => {
   // Receives username, password from /auth/signup request
   User.create({
     // Save User to Database and hash password
-    username: req.body.username,    
+    email: req.body.email,    
     password: bcrypt.hashSync(req.body.password, 8)
   })
     .then(user => {
@@ -44,7 +44,7 @@ exports.signin = (req, res) => {
   //Receives username and password from /auth/login POST request
   User.findOne({
     where: {
-      username: req.body.username
+      email: req.body.email
     }
   })
     .then(async (user) => {
@@ -150,6 +150,7 @@ exports.logout = (req,res) => {
     
     
   }
-  
+
+
   
  

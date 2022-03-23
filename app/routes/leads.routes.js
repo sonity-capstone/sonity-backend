@@ -18,5 +18,9 @@ router.get("/", (req, res) => {
         }
     })
 });
+/*
+router.get("/view", (req,res) => {
 
+})
+*/
 module.exports = router

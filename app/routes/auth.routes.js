@@ -13,7 +13,7 @@ module.exports = function(app) {
   app.post(
     "/auth/signup",
     [
-      verifySignUp.checkDuplicateUsernameOrEmail,
+      verifySignUp.checkDuplicateEmail,
       verifySignUp.checkRolesExisted
     ],
     controller.signup
@@ -22,4 +22,5 @@ module.exports = function(app) {
   app.post("/auth/login", controller.signin);
   app.post("/auth/refresh", controller.refreshToken);
   app.post("/auth/logout", controller.logout);
+ 
 };
