@@ -10,18 +10,20 @@ const json2csv = require('json2csv');
 const router = express();
 
 router.get("/", (req, res) => {
-    
     location_country_id = req.query.c_id ? req.query.c_id : 235
     location_region_id  = req.query.r_id ? req.query.r_id : 34
     location_metro_id   = req.query.m_id ? req.query.m_id : 285
     industry_id         = req.query.i_id ? req.query.i_id : 20
+    limit               = req.query.limit ? req.query.limit : 10
+    offset               = req.query.offset ? req.query.offset : 0
+    
     leadsDB.query(`
         SELECT * FROM li_data.get_profiles_list(
             ${location_country_id},
             ${location_region_id},
             ${location_metro_id},
             ${industry_id}
-        )
+        ) LIMIT ${limit} OFFSET ${offset}
     `, (err, leads) => {
         if (err) {
             res.send({error: err.toString()})
