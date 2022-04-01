@@ -25,7 +25,7 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.interestList = require("../models/interestList.model")(sequelize, Sequelize);
+db.payments = require("../models/payments.model")(sequelize, Sequelize);
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.refreshToken = require("../models/refreshToken.model.js")(sequelize, Sequelize);
@@ -46,8 +46,8 @@ db.refreshToken.belongsTo(db.user, {
 db.user.hasOne(db.refreshToken, {
   foreignKey: 'userId', targetKey: 'id'
 })
-db.user.hasOne(db.interestList, {
-  foreignKey: 'user_Id', targetKey: 'id'
+db.payments.belongsTo(db.user, {
+  foreignKey: 'userId', targetKey: 'id'
 })
 
 

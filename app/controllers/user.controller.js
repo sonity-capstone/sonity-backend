@@ -4,35 +4,18 @@ const { user: User, role: Role, refreshToken: RefreshToken } = db;
 
 const Op = db.Sequelize.Op;
 var bcrypt = require("bcryptjs");
-
 exports.allAccess = (req, res) => {
-    res.status(200).send("Public Content.");
+  res.status(200).send("Public Content.");
 };
-  
+
 exports.userBoard = (req, res) => {
-    res.status(200).send("User Content.");
+  res.status(200).send("User Content.");
 };
-  
+
 exports.adminBoard = (req, res) => {
-    res.status(200).send("Admin Content.");
+  res.status(200).send("Admin Content.");
 };
 
-/*
-exports.viewInterestList = (req,res) => {
-
-}
-exports.addToList = (req,res) => {
-
-}
-exports.removeFromList = (req,res) => {
-
-}
-
-exports.cancel = (req,res) => {
-
-}
-
-*/
 exports.editEmail = (req,res) => {
     User.findOne({
         where: {
@@ -67,6 +50,7 @@ exports.cancel = (req,res) => {
         res.status(200).send("TOTAL ANNIHILATION")
       }) 
 }
+
 
 
  
