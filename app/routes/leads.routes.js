@@ -39,7 +39,7 @@ router.get("/",  [authJWT.verifyToken], (req, res) => {
 
 
 
-router.get("/csv", (req, res) => {
+router.get("/csv", [authJWT.verifyToken], (req, res) => {
     
     let location_country_id = req.query.c_id ? req.query.c_id : 235
     let location_region_id  = req.query.r_id ? req.query.r_id : 34
@@ -56,7 +56,7 @@ router.get("/csv", (req, res) => {
         if (err) {
             res.send({error: err.toString()});
         } else {
-            leadsCsv = json2csv.parse(leads.rows, { fields: ['first_name', 'last_name', 'gender','linkedin_username']});
+            let leadsCsv = json2csv.parse(leads.rows, { fields: ['first_name', 'last_name', 'gender','linkedin_username']});
             res.setHeader('Content-disposition', 'attachment; filename=leads.csv');
             res.set('Content-Type', 'text/csv');
             res.status(200).send(leadsCsv);
@@ -64,7 +64,7 @@ router.get("/csv", (req, res) => {
     })
 });
 
-router.get("/count", (req, res) => {
+router.get("/count",  (req, res) => {
     
     let location_country_id = req.query.c_id ? req.query.c_id : 235
     let location_region_id  = req.query.r_id ? req.query.r_id : 34
@@ -86,7 +86,7 @@ router.get("/count", (req, res) => {
     })
 });
 
-router.get("/countries", (req, res) => {
+router.get("/countries",  (req, res) => {
     leadsDB.query(`
         SELECT * FROM reference.countries
     `, (err, countries) => {
@@ -132,7 +132,7 @@ router.get("/countries", (req, res) => {
     })
 });
 
-router.get("/regions/:country_id", (req, res) => {
+router.get("/regions/:country_id",(req, res) => {
     leadsDB.query(`
         SELECT * FROM reference.na_regions WHERE country_id = ${req.params.country_id}
     `, (err, countries) => {
@@ -144,7 +144,7 @@ router.get("/regions/:country_id", (req, res) => {
     })
 });
 
-router.get("/metro_areas/:region_id", (req, res) => {
+router.get("/metro_areas/:region_id",(req, res) => {
     leadsDB.query(`
         SELECT * FROM reference.na_metro_areas WHERE region_id = ${req.params.region_id}
     `, (err, countries) => {
