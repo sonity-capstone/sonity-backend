@@ -29,11 +29,8 @@ function initial() {
   });
 }
 
-var corsOptions = {
-  origin: "http://localhost:3050"
-};
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
